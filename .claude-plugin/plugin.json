@@ -1,0 +1,12 @@
+{
+  "name": "diskcopilot-skills",
+  "description": "Claude Code skills for disk scanning, analysis, and cleanup using diskcopilot-cli",
+  "version": "0.1.0",
+  "author": {
+    "name": "bluedusk"
+  },
+  "homepage": "https://github.com/bluedusk/diskcopilot-skills",
+  "repository": "https://github.com/bluedusk/diskcopilot-skills",
+  "license": "MIT",
+  "keywords": ["disk", "storage", "cleanup", "scanning", "diskcopilot"]
+}

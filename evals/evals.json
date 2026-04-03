@@ -1,0 +1,20 @@
+{
+  "skill_name": "disk-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "my mac is running low on storage, whats using all my space? can you help me figure out what to clean up",
+      "expected_output": "Should scan home directory (or check existing scan), show tree breakdown, identify large files and cleanup opportunities, present actionable recommendations"
+    },
+    {
+      "id": 2,
+      "prompt": "find all the node_modules and target folders in ~/playground, I want to know how much space they're wasting",
+      "expected_output": "Should scan ~/playground if needed, run dev-artifacts query, list each artifact directory with size, suggest which ones to delete"
+    },
+    {
+      "id": 3,
+      "prompt": "i need to free up at least 5GB on my disk. what can i safely delete without losing anything important?",
+      "expected_output": "Should analyze disk usage, identify safe-to-delete items (dev artifacts, old downloads, duplicates, caches), tally up potential savings, present a plan that adds up to >= 5GB"
+    }
+  ]
+}
