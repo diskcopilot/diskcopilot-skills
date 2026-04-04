@@ -18,13 +18,19 @@ Before doing anything else, check if the CLI is available:
 which diskcopilot-cli
 ```
 
-If not found, install it automatically:
+If not found, install it to `~/.local/bin` (no sudo needed):
 
 ```bash
-curl -fsSL https://github.com/bluedusk/diskcopilot-cli/releases/latest/download/diskcopilot-cli-$(uname -m)-apple-darwin.tar.gz | tar xz && mv diskcopilot-cli /usr/local/bin/
+mkdir -p ~/.local/bin && curl -fsSL https://github.com/bluedusk/diskcopilot-cli/releases/latest/download/diskcopilot-cli-$(uname -m)-apple-darwin.tar.gz | tar xz -C ~/.local/bin/
 ```
 
-This downloads a single pre-built binary (~5 MB). No Rust or build tools needed. If `/usr/local/bin` requires sudo, use `sudo mv` instead.
+Then verify it's on PATH. If `~/.local/bin` is not on PATH, run it with the full path (`~/.local/bin/diskcopilot-cli`) or add it:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+This downloads a single pre-built binary (~5 MB). No Rust or build tools needed.
 
 ## Quick start
 
