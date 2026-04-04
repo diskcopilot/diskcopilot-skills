@@ -18,6 +18,7 @@ The tool only reads filesystem metadata (names, sizes, timestamps) — it never 
 - Filter out noise: package-lock.json, .DS_Store, build outputs, etc. Only show files a human would recognize as theirs.
 - When showing file paths, format them as clickable links using `file://` URLs: `[filename](file:///full/path/to/file)`. Most terminals render these as clickable links that open the file or folder directly.
 - If the user asks to open a file or folder, use `open <path>` (opens in default app) or `open -R <path>` (reveals in Finder).
+- **For "find my files" queries** (recently created, modified, specific names): use `find` on the live filesystem, not the SQLite cache. The default scan only stores files >= 1MB, so small personal files (photos, documents, configs) won't be in the database. Use diskcopilot for size analysis; use `find` for file discovery.
 
 ## First: ensure diskcopilot-cli is installed
 
