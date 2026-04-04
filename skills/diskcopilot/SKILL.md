@@ -61,6 +61,11 @@ diskcopilot-cli query sql "SELECT name, disk_size, extension, modified_at FROM f
 diskcopilot-cli query sql "SELECT extension, COUNT(*) as count, SUM(disk_size) as total FROM files WHERE extension IS NOT NULL GROUP BY extension ORDER BY total DESC LIMIT 10" ~
 ```
 
+Also query macOS system junk — see `references/macos-junk.md` for the full list of known junk categories, SQL queries, and cleanup commands:
+```bash
+diskcopilot-cli query sql "SELECT name, total_disk_size FROM dirs WHERE name IN ('Caches', 'Google', 'Firefox', 'Mozilla', 'Safari', 'Homebrew', 'pip', 'Yarn', 'CocoaPods', 'Logs', '.Trash', 'DerivedData', 'Archives', 'Backup', 'MobileSync', 'ShipIt', 'ms-playwright', 'puppeteer', 'prisma') AND total_disk_size > 10000000 ORDER BY total_disk_size DESC" ~
+```
+
 Also get disk free space:
 ```bash
 df -h ~
