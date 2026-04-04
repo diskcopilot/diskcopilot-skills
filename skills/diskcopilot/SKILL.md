@@ -10,6 +10,14 @@ description: |
 
 The tool only reads filesystem metadata (names, sizes, timestamps) — it never reads file contents (except for duplicate detection, which computes local-only blake3 hashes). It has no network access.
 
+## Presentation rules
+
+- **Never show raw SQL, JSON, or command output to the user.** Run queries behind the scenes, then present clean formatted results (tables, lists, summaries).
+- Convert bytes to human-readable sizes (GB, MB). Convert Unix timestamps to dates.
+- When the user says "my files", they mean personal files — Documents, Downloads, Desktop, Pictures, Movies, Music. Exclude system files, build artifacts, caches, logs, and hidden directories.
+- Filter out noise: package-lock.json, .DS_Store, build outputs, etc. Only show files a human would recognize as theirs.
+- When showing files, offer to open them: `open <path>` opens in default app, `open -R <path>` reveals in Finder. The user can say "open it" or "show me in Finder".
+
 ## First: ensure diskcopilot-cli is installed
 
 Before doing anything else, check if the CLI is available:
