@@ -318,7 +318,7 @@ diskcopilot-cli unkeep <path>     # remove protection
 diskcopilot-cli keep-list         # show all protected items
 ```
 
-Protected files still appear in reports (the user needs to see their full disk usage), but `diskcopilot-cli delete` will refuse to delete them. If the user says "keep this" or "don't delete this", run `diskcopilot-cli keep <path>` to persist it across sessions. The safelist is stored at `~/.diskcopilot/safelist.txt`.
+Protected files still appear in reports (the user needs to see their full disk usage), but `diskcopilot-cli delete` will refuse to delete them. When the user indicates a file is important — "keep this", "don't delete this", "that's not junk", "I need that", "skip this one" — run `diskcopilot-cli keep <path>` immediately without asking. The safelist persists at `~/.diskcopilot/safelist.txt`.
 
 ## Example flows
 
