@@ -1,78 +1,49 @@
-# diskcopilot-skills
+# diskcopilot
 
-Claude Code skills for [diskcopilot-cli](https://github.com/bluedusk/diskcopilot-cli) — disk scanning, analysis, and cleanup on macOS.
+Claude Code plugin for disk scanning, analysis, and cleanup on macOS.
 
-## What's this?
-
-This is a [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code) that teaches Claude how to use `diskcopilot-cli` to analyze your disk space, find large files, detect duplicates, locate dev build caches, and help you clean up.
-
-Once installed, just ask Claude things like:
+Ask Claude things like:
 - "What's taking up space on my Mac?"
-- "Find large files in my Downloads"
-- "How much space are my node_modules using?"
-- "Help me free up 10GB of disk space"
+- "How big are my node_modules?"
+- "Help me free up 10GB"
 
-Claude will scan your filesystem, query the cache, and present actionable cleanup recommendations.
-
-## Prerequisites
-
-Install [diskcopilot-cli](https://github.com/bluedusk/diskcopilot-cli):
-
-```bash
-git clone https://github.com/bluedusk/diskcopilot-cli
-cd diskcopilot-cli
-make install
-```
+Or use slash commands:
+- `/diskcopilot:scan` — scan a directory
+- `/diskcopilot:cleanup` — open interactive cleanup dashboard in browser
+- `/diskcopilot:report` — generate a disk usage report
 
 ## Install
 
-### Claude Code CLI
-
 ```bash
+# 1. Install diskcopilot-cli
+git clone https://github.com/bluedusk/diskcopilot-cli && cd diskcopilot-cli && make install && cd ..
+
+# 2. Install the Claude Code plugin
 claude plugin add bluedusk/diskcopilot-skills
 ```
 
-### Manual
+That's it. Start a Claude Code session and ask about your disk space.
 
-Add to your Claude Code settings (`~/.claude/settings.json`):
+## What it does
 
-```json
-{
-  "extraKnownMarketplaces": {
-    "diskcopilot-skills": {
-      "source": {
-        "source": "github",
-        "repo": "bluedusk/diskcopilot-skills"
-      },
-      "autoUpdate": true
-    }
-  }
-}
-```
+The plugin teaches Claude how to use [diskcopilot-cli](https://github.com/bluedusk/diskcopilot-cli) — a fast macOS disk scanner (~12s for a home directory). It scans filesystem metadata into a local SQLite cache, then Claude queries it with SQL to answer any disk space question.
 
-Then enable the plugin:
+**Skill** (auto-triggers when you talk about disk space):
+- Scans directories and caches metadata
+- Writes SQL queries against the cache to answer questions
+- Presents cleanup recommendations by category
+- Launches an interactive web UI for browsing and trashing files
 
-```json
-{
-  "enabledPlugins": {
-    "diskcopilot-skills@diskcopilot-skills": true
-  }
-}
-```
-
-## Skills
-
-### disk-analysis
-
-Teaches Claude how to use `diskcopilot-cli` for:
-- Scanning directories and building a metadata cache
-- Querying for large files, old files, duplicates, dev artifacts
-- Presenting directory size trees and cleanup summaries
-- Safely deleting files (Trash or permanent)
+**Commands:**
+| Command | What it does |
+|---------|-------------|
+| `/diskcopilot:scan` | Scan a directory (or cwd) |
+| `/diskcopilot:cleanup` | Analyze + open browser dashboard to select and trash items |
+| `/diskcopilot:report` | Analyze + show report in conversation |
 
 ## Privacy
 
-`diskcopilot-cli` only reads filesystem metadata (names, sizes, timestamps). It has no network dependencies and never sends data anywhere. See the [diskcopilot-cli README](https://github.com/bluedusk/diskcopilot-cli#privacy--security) for details.
+`diskcopilot-cli` only reads filesystem metadata (names, sizes, timestamps). It has no network dependencies and never sends data anywhere. The interactive cleanup UI runs on localhost with a per-session auth token. See [diskcopilot-cli](https://github.com/bluedusk/diskcopilot-cli#privacy--security) for details.
 
 ## License
 
