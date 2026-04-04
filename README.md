@@ -1,8 +1,8 @@
 # diskcopilot
 
-Claude Code plugin for disk scanning, analysis, and cleanup on macOS.
+AI agent plugin for disk scanning, analysis, and cleanup on macOS.
 
-Ask Claude things like:
+Ask your agent things like:
 - "What's taking up space on my Mac?"
 - "How big are my node_modules?"
 - "Help me free up 10GB"
@@ -15,26 +15,26 @@ Or use slash commands:
 ## Install
 
 ```bash
-# 1. Install diskcopilot-cli (Apple Silicon)
-curl -fsSL https://github.com/bluedusk/diskcopilot-cli/releases/latest/download/diskcopilot-cli-aarch64-apple-darwin.tar.gz | tar xz && sudo mv diskcopilot-cli /usr/local/bin/
-
-# 2. Install the Claude Code plugin
 claude plugin add bluedusk/diskcopilot-skills
 ```
 
-That's it. Start a Claude Code session and ask about your disk space.
+That's it. The plugin will automatically install the `diskcopilot-cli` binary on first use.
+
+### Other agents
+
+For Cursor, Copilot, Codex, or other AI agents, copy the skill instructions from [skills/diskcopilot/SKILL.md](skills/diskcopilot/SKILL.md) into your agent's configuration file (`.cursorrules`, `copilot-instructions.md`, `AGENTS.md`, etc.). The skill includes auto-install instructions for the CLI binary.
 
 ## What it does
 
-The plugin teaches Claude how to use [diskcopilot-cli](https://github.com/bluedusk/diskcopilot-cli) — a fast macOS disk scanner (~12s for a home directory). It scans filesystem metadata into a local SQLite cache, then Claude queries it with SQL to answer any disk space question.
+The plugin teaches AI agents how to use [diskcopilot-cli](https://github.com/bluedusk/diskcopilot-cli) — a fast macOS disk scanner (~12s for a home directory). It scans filesystem metadata into a local SQLite cache, then the agent queries it with SQL to answer any disk space question.
 
-**Skill** (auto-triggers when you talk about disk space):
-- Scans directories and caches metadata
-- Writes SQL queries against the cache to answer questions
+- Auto-installs the CLI binary on first use
+- Writes SQL queries against the cache to answer any question
 - Presents cleanup recommendations by category
 - Launches an interactive web UI for browsing and trashing files
 
 **Commands:**
+
 | Command | What it does |
 |---------|-------------|
 | `/diskcopilot:scan` | Scan a directory (or cwd) |

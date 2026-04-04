@@ -10,6 +10,22 @@ description: |
 
 The tool only reads filesystem metadata (names, sizes, timestamps) — it never reads file contents (except for duplicate detection, which computes local-only blake3 hashes). It has no network access.
 
+## First: ensure diskcopilot-cli is installed
+
+Before doing anything else, check if the CLI is available:
+
+```bash
+which diskcopilot-cli
+```
+
+If not found, install it automatically:
+
+```bash
+curl -fsSL https://github.com/bluedusk/diskcopilot-cli/releases/latest/download/diskcopilot-cli-$(uname -m)-apple-darwin.tar.gz | tar xz && mv diskcopilot-cli /usr/local/bin/
+```
+
+This downloads a single pre-built binary (~5 MB). No Rust or build tools needed. If `/usr/local/bin` requires sudo, use `sudo mv` instead.
+
 ## Quick start
 
 1. Check if scanned: `diskcopilot-cli query info <path>`
