@@ -43,9 +43,22 @@ This downloads a single pre-built binary (~5 MB). No Rust or build tools needed.
 
 **Always scan the home directory (`~`), not a subdirectory.** A single scan of `~` covers all subdirectory queries. Don't scan `~/playground` when the user asks about node_modules — scan `~` once and query the subtree you need. Scanning narrow paths wastes time because the user will inevitably ask about another folder next.
 
-## Two response modes
+## The scan command already prints a report
 
-**Quick query** — for specific questions ("how big are my node_modules?", "find large mp4 files"). Run a SQL query, present results in conversation. Fast.
+After scanning, `diskcopilot-cli scan` outputs a rich summary directly in the terminal:
+- Directory breakdown with colored size bars (top 10)
+- Dev artifacts grouped by type with instance counts
+- Top 5 largest files
+- Potential savings total
+- Hint to run `serve` for interactive cleanup
+
+**If the user asks for a scan and report, just run the scan.** The output IS the report. Present it to the user — don't run additional queries to rebuild the same information. Only query further if the user asks follow-up questions.
+
+## Three response modes
+
+**Scan + report** — for "scan my disk" or "give me a report". Just run `diskcopilot-cli scan ~` and present the output. Done.
+
+**Quick query** — for specific questions ("how big are my node_modules?", "find large mp4 files"). Check the cache, run a SQL query, present results. Fast.
 
 **Interactive cleanup** — for browsing and deleting ("help me clean up", "free up 10GB"). Analyze with SQL, write insights to a file, launch the web UI:
 ```bash
